@@ -9,8 +9,13 @@ def index():
 
 
 @app.route("/auth")
-def add_route():
+def auth():
     return render_template("auth.html", loginnotfound=True)
+
+
+@app.route("/register")
+def regit_roupe():
+    return render_template("register.html")
 
 
 if __name__ == "__main__":

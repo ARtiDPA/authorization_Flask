@@ -13,7 +13,7 @@ header h1{
 
 .main-content{
     font-size: 23px;
-    margin-top: 250px;
+    margin-top: 200px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -30,8 +30,8 @@ header h1{
     font-family: 'Courier New', Courier, monospace;
     margin-top: 20px;
     text-align: center;
-    height: 20px;
-    width: 150px;
+    height: 30px;
+    width: 125px;
     border-style: none;
     border-radius: 5px;
 }

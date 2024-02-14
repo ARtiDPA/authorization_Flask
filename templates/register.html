@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={{ url_for("static", filename="/css/register.css")}}>
+    <title>Регистрация</title>
+</head>
+<body>
+    <div class = "main-content">
+        <div class="content-child">
+            <div class="element">
+                <h1>Регистрация</h1>
+            </div>
+            <form>
+                <div class="main-element">
+                    <div class="element">
+                        <p>Имя</p>
+                        <input type="text">
+                    </div>
+                    <div class="element">
+                        <p>Фамилия</p>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="main-element">
+                    <div class="element">
+                        <p>mail</p>
+                        <input type="text">
+                    </div>
+                    <div class="element">
+                        <p>логин</p>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="main-element">
+                    <div class="element">
+                        <p>пароль</p>
+                        <input type="text">
+                    </div>
+                    <div class="element">
+                        <p>повторите пароль</p>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="sumb">
+                    <input type="submit" value="Регистрация">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

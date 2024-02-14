@@ -1,0 +1,56 @@
+.main-content{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    margin-top: 200px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.main-content h1{
+    font-size: 40px;
+}
+
+
+
+.main-element{
+    display: flex;
+    justify-content: center;
+}
+
+
+.element{
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.element p{
+    font-size: 18px;
+}
+
+
+
+
+.sumb{
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.sumb input{
+    border-style: none;
+    border-radius: 5px;
+    height: 25px;
+    width: 150px;
+    font-size: 15px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+.sumb input:hover{
+    background-color: grey;
+}
+
+.sumb input:active{
+    background-color: white;
+}
