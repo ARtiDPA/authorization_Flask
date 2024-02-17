@@ -8,33 +8,26 @@
 </head>
 <body>
     <div class = "main-content">
-        <div>
-            <h1>Авторизация</h1>
-        </div>
-        {% if loginnotfound == False %}
-        <div>
-            <h4 class="lognot">Логин или пароль введены неверно</h4>
-        </div>
-        {% endif %}
-        <div>
-            <form method="post">
+        <form method="post">
+            <div class = element>
+                <h1>Авторизация</h1>
+            </div>
+            <div>
                 <p>Введите логин</p>
                 <input type="text" name = "login">
-            </form>
-        </div>
-        <div>
-            <form method="post">
+            </div>
+            <div>
                 <p>Введите пароль</p>
                 <input type="password" name="password">
-            </form>
-        </div>
-        <div>
-            <input type="submit" class = "sumb">
-        </div>
-        <div class="help">
-            <p>зарегистрироваться</p>
-            <p>не можете войти?</p>
-        </div>
+            </div>
+            <div>
+                <input type="submit" class = "sumb" value="Войти">
+            </div>
+            <div class = "help">
+                <p><a href="/register">Зарегистрироваться</a></p>
+                <p><a href="#">Не можете войти?</a></p>
+            </div>
+        </form>
     </div>
 </body>
 </html>
