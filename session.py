@@ -16,6 +16,17 @@ def authorization(login, password):
         print(user_info)
         print(stm)
         if user_info != []:
+            return user_info[0].id
+        else:
+            return False
+
+
+def serching_user(id):
+    with Session.begin() as session:
+        stm = select(user).filter_by(id=id)
+        user_info = session.scalars(stm).all()
+        print(user_info[0].id)
+        if user_info != []:
             return True
         else:
             return False

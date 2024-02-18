@@ -1,0 +1,24 @@
+.main-content{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    margin-top: 250px;
+    font-family:'Courier New', Courier, monospace;
+}
+
+.control{
+    display: flex;
+    justify-content: center;
+}
+
+.control div{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+.control a{
+    text-decoration: none;
+    color: black;
+}

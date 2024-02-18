@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={{ url_for("static", filename="/css/index.css") }}>
+    <title>Главная страница</title>
+</head>
+<body>
+    <div class = "main-content">
+        <div>
+            <h1>Главная страница</h1>
+        </div>
+        <div>
+            <p>Это проект сделан по работе с аутентификацией через JWT токен</p>
+        </div>
+        <div class = "control">
+            <div>
+                <h2><a href="/auth">Вход</a></h2>
+            </div>
+            <div>
+                <h2><a href="/register">Регистрация</a></h2>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

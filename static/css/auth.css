@@ -34,3 +34,8 @@ body{
     text-decoration: none;
     color: black;
 }
+
+
+.no_valid{
+    color: red;
+}
