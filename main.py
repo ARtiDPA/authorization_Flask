@@ -6,6 +6,7 @@ import flask
 app = Flask(__name__)
 app.secret_key = ["qazwsxedc_QAZWSXEDC"]
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -71,8 +72,6 @@ def profile():
             return redirect(url_for("auth"))
     else:
         return redirect(url_for("auth"))
-
-
 @app.route("/exit")
 def exit():
     if "user_id" in flask.session:
@@ -82,7 +81,5 @@ def exit():
             return redirect(url_for("auth"))
     else:
         return redirect(url_for("auth"))
-
-
 if __name__ == "__main__":
     app.run()
