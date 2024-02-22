@@ -1,22 +1,12 @@
-from jwt import encode, decode
+from flask_jwt_extended import create_access_token, create_refresh_token
+from flask_jwt_extended import get_jwt_identity
 
 
-secret_key = "qazwsxedc_QAZWSXEDC"
+def generate_assecc_token(user_id):
+    access_token = create_access_token(identity=user_id)
+    return access_token
 
 
-def create_token(id):
-    payload = {"user_id": id}
-    token = encode(payload, secret_key, algorithm="HS256")
-    return token
-
-
-def decoding(token):
-    verified_token = decode(token, secret_key, algorithms='HS256')
-    return verified_token
-
-
-def check(token):
-    decod_token = decoding(token)
-    id = decod_token.get("user_id")
-    print(id)
-    return id
+def generate_refresh_token(user_id):
+    refresh_token = create_refresh_token(identity=user_id)
+    return refresh_token

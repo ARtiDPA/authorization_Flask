@@ -30,3 +30,15 @@ def serching_user(id):
             return True
         else:
             return False
+
+
+def changing_login(login, id):
+    pass
+
+
+def changing_mail(mail):
+    pass
+
+
+def changing_password(password):
+    pass

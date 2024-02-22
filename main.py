@@ -1,10 +1,18 @@
-from flask import Flask, render_template, request, redirect, url_for
-from session import register, authorization, serching_user
-from authentication import create_token, check
-import flask
+from flask import Flask, render_template, request, redirect, url_for, make_response
+from session import register, authorization
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
+from authentication import create_access_token, create_refresh_token
+from datetime import timedelta
+import authentication
 
 app = Flask(__name__)
-app.secret_key = ["qazwsxedc_QAZWSXEDC"]
+
+app.config["SECRET_KEY"] = "secret_keyy"
+app.config["JWT_SECRET_KEY"] = "secret_keyy"
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=20)
+app.config["JWT_REFRESH_TOKEN_EXPRIRES"] = timedelta(days=7)
+jwt = JWTManager(app)
 
 
 @app.route("/")
@@ -17,14 +25,17 @@ def auth():
     if request.method == "POST":
         login = request.form["login"]
         password = request.form["password"]
-        print(login)
-        print(password)
         if login != "" and password != "":
             id = authorization(login, password)
             if id:
-                token = create_token(id)
-                flask.session["user_id"] = token
-                return redirect(url_for("profile"))
+                access_token = create_access_token(id)
+                refresh_token = create_refresh_token(id)
+                response = make_response(redirect(url_for("profile")))
+                response.set_cookie('access_token_cookie', access_token)
+                response.set_cookie('refresh_token_cookie', refresh_token)
+                print(access_token)
+                print(refresh_token)
+                return response
             else:
                 return render_template("auth.html", valid_data=True)
         else:
@@ -56,30 +67,40 @@ def register_roupe():
 
 
 @app.route("/profile", methods=["GET"])
+@jwt_required(locations=["headers", "cookies"])
 def profile():
-    if "user_id" in flask.session:
-        user_token = flask.session["user_id"]
-        print("prov_1")
-        if user_token != "":
-            print("prove_2")
-            id = check(user_token)
-            if serching_user(id):
-                print("prove_3")
-                return render_template("profil.html")
-            else:
-                return redirect(url_for("auth"))
-        else:
-            return redirect(url_for("auth"))
-    else:
-        return redirect(url_for("auth"))
+    return render_template("profil.html")
+
+
+@app.route("/changing_login", methods=["POST", "GET"])
+def changing_login():
+    pass
+
+
 @app.route("/exit")
 def exit():
-    if "user_id" in flask.session:
-        user_token = flask.session["user_id"]
-        if user_token != "":
-            flask.session["user_id"] = ""
-            return redirect(url_for("auth"))
-    else:
-        return redirect(url_for("auth"))
+    response = make_response(redirect(url_for("auth")))
+    response.set_cookie("access_token_cookie", "")
+    response.set_cookie("refresh_token_cookie", "")
+    return response
+
+
+@jwt.expired_token_loader
+def expired_token_callback(jwt_header, jwt_data):
+    return redirect(url_for("access_refresh"))
+
+
+@app.route("/refresh")
+@jwt_required(refresh=True, locations=["headers", "cookies"])
+def access_refresh():
+    user_id = authentication.get_jwt_identity()
+    access_token = create_access_token(user_id)
+    refresh_token = create_refresh_token(user_id)
+    response = make_response("Токены обновленны")
+    response.set_cookie('access_token_cookie', access_token)
+    response.set_cookie('refresh_token_cookie', refresh_token)
+    return response
+
+
 if __name__ == "__main__":
     app.run()
