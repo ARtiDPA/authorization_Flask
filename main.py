@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, make_response
-from session import register, authorization
+from session import register, authorization, changing_mail, changing_login, changing_password
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
 from authentication import create_access_token, create_refresh_token
@@ -12,6 +12,7 @@ app.config["SECRET_KEY"] = "secret_keyy"
 app.config["JWT_SECRET_KEY"] = "secret_keyy"
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=20)
 app.config["JWT_REFRESH_TOKEN_EXPRIRES"] = timedelta(days=7)
+app.config['JWT_COOKIE_CSRF_PROTECT'] = False
 jwt = JWTManager(app)
 
 
@@ -73,8 +74,40 @@ def profile():
 
 
 @app.route("/changing_login", methods=["POST", "GET"])
-def changing_login():
-    pass
+@jwt_required(locations=["headers", "cookies"])
+def changing_login_user():
+    if request.method == "POST":
+        login = request.form["login"]
+        id = authentication.get_jwt_identity()
+        print(id)
+        changing_login(login, id)
+        return "Логин успешно изменён"
+    else:
+        return render_template("Changing_login.html")
+
+
+@app.route("/changing_mail", methods=["POST", "GET"])
+@jwt_required(locations=["headers", "cookies"])
+def changing_mail_user():
+    if request.method == "POST":
+        mail = request.form["mail"]
+        id = authentication.get_jwt_identity()
+        changing_mail(mail, id)
+        return "mail успешно изменён"
+    else:
+        return render_template("Changing_mail.html")
+
+
+@app.route("/changing_password", methods=["POST", "GET"])
+@jwt_required(locations=["headers", "cookies"])
+def changing_password_user():
+    if request.method == "POST":
+        password = request.form["password"]
+        id = authentication.get_jwt_identity()
+        changing_password(password, id)
+        return "Пароль успешно изменён"
+    else:
+        return render_template("Changing_password.html")
 
 
 @app.route("/exit")

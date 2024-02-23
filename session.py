@@ -33,12 +33,21 @@ def serching_user(id):
 
 
 def changing_login(login, id):
-    pass
+    with Session.begin() as session:
+        user_object = session.get(user, id)
+        user_object.login = login
+        session.commit
 
 
-def changing_mail(mail):
-    pass
+def changing_mail(mail, id):
+    with Session.begin() as session:
+        user_object = session.get(user, id)
+        user_object.mail = mail
+        session.commit
 
 
-def changing_password(password):
-    pass
+def changing_password(password, id):
+    with Session.begin() as session:
+        user_object = session.get(user, id)
+        user_object.password = password
+        session.commit
